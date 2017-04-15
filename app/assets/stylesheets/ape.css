@@ -1,0 +1,239 @@
+/* CSS for APE */
+
+html, body {
+	/*background: url("../../img/tilebg.jpg") !important;*/
+	background-repeat: repeat;
+	height: 100%;
+	margin: 0 !important;
+	padding: 0 !important;
+	font-family: Tahoma, Verdana, Segoe, sans-serif;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+}
+
+.im {
+	float: right;
+	height: 42px;
+	position: relative;
+	right: 5px;
+	top: 3px;
+}
+.imh {
+	height: 42px;
+	position: absolute;
+	right: 5px;
+	top: 3px;
+}
+.ul {
+	position: absolute;
+	background: rgba(147, 112, 219, .2);
+	float: left;
+	margin: .2%;
+	border-radius: 10px;
+	top: 45px;
+	left: 0px;
+}
+
+.heading {
+	width: 99.8%;
+	background: gray;
+	color: white;
+	border: 1px solid black;
+	border-radius: 10px;
+	text-align: center;
+}
+
+.container {
+	background: rgba(75, 0, 130, .2);
+	right: 0px;
+	top: 45px;
+	margin: .2%;
+	border-radius: 10px;
+	position: absolute;
+	overflow: auto;
+}
+
+.ur {
+	display: table;
+	width: 100%;
+	position: relative;
+}
+
+.bl {
+	background: rgba(75, 0, 130, .2);
+	left: 0px;
+	margin: .2%;
+	border-radius: 10px;
+	text-align: left;
+	overflow-y: auto;
+	overflow-x: hidden;
+	position: absolute;
+	bottom: 0px;
+}
+
+.br {
+	background: rgba(147, 112, 219, .2);
+	margin: .2%;
+	border-radius: 10px;
+	overflow: auto;
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+}
+
+#tab {
+	table-layout: fixed;
+	float: left;
+	width: 98%;
+	height: 95%;
+	margin: 1%;
+}
+
+.row {
+	border-radius: 10px;
+	vertical-align: top;
+}
+
+.col {
+	width: 33%;
+	background-color: #F8F8FF;
+	border: 2px;
+	border-radius: 4px;
+	font-size: 13px;
+	padding: 5px;
+}
+
+.t {
+	font-size: 15px;
+	font-weight: bold;
+	font-variant: small-caps;
+	margin: 0px;
+	display: inline;
+}
+
+.hours {
+	float: right;
+	margin: 0px
+}
+
+.dropdown ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background: -webkit-linear-gradient(#E6E6FA, #A096CD);
+	display: table;
+	width: 100%;
+}
+
+.dropdown li {
+	float: left;
+	background: -webkit-linear-gradient(#E6E6FA, #A096CD);
+	color: white;
+	font-size: 20px;
+	border: none;
+	display: table-cell;
+}
+
+.dropdown li a, .dropbtn {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: center;
+}
+
+li.dropdown {
+	display: inline-block;
+}
+
+li a:hover, .dropdown:hover .dropbtn:hover {
+	background: -webkit-linear-gradient(#A096CD, #E6E6FA);
+}
+
+.video{
+	height: 50%;
+	width: 100%;
+	vertical-align: middle;
+	display: block;
+	position: relative;
+	top: 23%;
+}
+
+.grape{
+	height: 90%;
+}
+
+.wikipedia{
+	height: 90%;
+	width: 99.8%;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+input[type=text] {
+	display: inline;
+    width: 100%;
+    padding: 2px 2px;
+    margin: 0px 0;
+    box-sizing: border-box;
+}
+
+#years{
+	width: 20px;
+}
+
+#courseform{
+	font-size: 14px;
+}
+
+#cred{
+	width: 35px;
+}
+
+.coursesubmit{
+	text-align: center;
+}
+
+#noty_topRight_layout_container > li {
+    background-color: #800080 !important;
+}
+
+.csfth{
+    border-bottom: 1px solid #d6d6d6;
+}
+
+#myTable{
+	width: 100%;
+}
+
+#courselisttab tr:nth-child(even) {
+    background: #f9f9f9 !important;
+	text-shadow: none;
+}
+
+#courselisttab tr:nth-child(odd) {
+    background: lightgray !important;
+	text-shadow: none;
+	border-bottom: 1px solid white;
+}
+
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover{
+   background: #500050 !important;
+   color: white !important;
+}
+
+select{
+	width: 100%;
+	height: 30px;
+}
+
+.formcontainer{
+	margin: 25px;
+
+}
