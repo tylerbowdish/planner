@@ -232,6 +232,7 @@ myPlan.addCourse('GDES-1220', 'Digital Imaging: Adobe Photoshop', 'Spring', 2017
 
 window.onload = function setCourses(){
 	updateCs();
+	getCourseList();
 	resetGrid();
 }
 //update course list
@@ -303,7 +304,33 @@ function updateCs() {
         }
     }
 }
-
+function getDataCourses(url) {
+	var data;
+		$.ajax({
+			async: false, //thats the trick
+			url: '/courses.json',
+			dataType: 'json',
+			success: function(response){
+			   data = response;
+			}
+		});
+	return data;
+}
+var csDat;
+function getCourseList(){
+	csDat = getDataCourses('/courses.json');
+	for (var i in csDat){
+		var newRow = document.createElement("tr");
+		for (var j in csDat[i]){
+			var newCol = document.createElement("td");
+			var txt = document.createTextNode(csDat[i][j]);
+			newCol.appendChild(txt);
+			newRow.appendChild(newCol);
+		}
+		$(newRow).data('number', csDat[i].number);
+		$('#courselisttab').append(newRow);
+	}
+}
 //Name validation, must exist on submit
 function validateName() {
     var x = document.forms[0]["name"].value;
@@ -394,11 +421,6 @@ function resetGrid() {
     document.getElementsByClassName('ul')[0].style.height = (window.innerHeight - 40) * .60 + "px";
     document.getElementsByClassName('bl')[0].style.width = window.innerWidth * .24 + "px";
     document.getElementsByClassName('bl')[0].style.height = (window.innerHeight - 40) * .38 + "px";
-    if (width < 1059) {
-        document.getElementsByClassName('im')[0].style.width = width - 538 + ".px";
-    } else {
-        document.getElementsByClassName('im')[0].style.width = "523px";
-    }
 }
 
 window.addEventListener("resize", resetGrid);
