@@ -60,7 +60,7 @@
 
    	<script>
 
-   	   class Term {
+class Term {
     constructor(name) {
         this.name = name;
         this.courses = {};
@@ -188,53 +188,61 @@ class Plan {
 };
 var myPlan = new Plan();
 var data;
-myPlan.addCourse('CS-1210', 'C++ Programming', 'Fall', 201415, 2);
-myPlan.addCourse('COM-1100' , 'Fundamentals of Speech ', 'Fall', 201415, 3);
-myPlan.addCourse('MATH-1710', ' Calculus I', 'Fall', 201415, 5);
-myPlan.addCourse('GBIO-1000', 'Prin of Biology', 'Fall', 201415, 4);
-myPlan.addCourse('EGCP-1010', 'Digital Logic Design', 'Fall', 201415, 3);
-myPlan.addCourse('MATH-1720', 'Calculus II', 'Spring', 201415, 5);
-myPlan.addCourse('HIST-1120', 'US History II', 'Spring', 201415, 3);
-myPlan.addCourse('PYCH-1600', ' General Psychology', 'Spring', 201415, 3);
-myPlan.addCourse('ENG-1400', 'Composition', 'Spring', 201415, 3);
-myPlan.addCourse('HUM-1400', 'Intro to Humanities', 'Summer', 201415, 3);
-myPlan.addCourse('CS-1220', 'Obj-Orient C++', 'Fall', 201516, 3);
-myPlan.addCourse('GSS-1100', 'Politics & American Culture', 'Fall', 201516, 3);
-myPlan.addCourse('MATH-3110', 'Prob & Statistics I', 'Fall', 201516, 3);
-myPlan.addCourse('PHYS-2110', 'General Physics I', 'Fall', 201516, 4);
-myPlan.addCourse('BTGE-1720', 'Spiritual Formation', 'Fall', 201516, 3);
-myPlan.addCourse('BTGE-2730', 'Old Testament Lit', 'Spring', 201516, 5);
-myPlan.addCourse('CS-2210', 'Data Struct Using Java', 'Spring', 201516, 3);
-myPlan.addCourse('CS-3350', 'Foundations Computer S', 'Spring', 201516, 3);
-myPlan.addCourse('MATH-2510', 'Discrete Math-Computer', 'Spring', 201516, 3);
-myPlan.addCourse('PHYS-2120', 'General Physics II', 'Spring', 201516, 4);
-myPlan.addCourse('BTGE-2740', 'New Testament Lit', 'Fall', 201617, 3);
-myPlan.addCourse('CS-3310' , 'Operating Systems', 'Fall', 201617, 3);
-myPlan.addCourse('EGCP-2120', 'Microcontrollers', 'Fall', 201617, 3);
-myPlan.addCourse('LIT-2300', 'Intro to Literature', 'Fall', 201617, 3);
-myPlan.addCourse('PEF-1990', 'Phys Act & the Christi', 'Fall', 201617, 2);
-myPlan.addCourse('CS-3410', 'Algorithms', 'Fall', 201617, 3);
-myPlan.addCourse('CS-3610', 'Database Org & Design', 'Spring', 201617, 3);
-myPlan.addCourse('CS-3220', 'Web Applications', 'Spring', 201617, 3);
-myPlan.addCourse('EGCP-3210', 'Computer Architecture', 'Spring', 201617, 3);
-myPlan.addCourse('EGCP-3010', 'Adv Digital Logic Desi', 'Spring', 201617, 3);
-myPlan.addCourse('BTGE-3755', 'Theology I', 'Spring', 201617, 3);
-myPlan.addCourse('EGGN-4010', 'Senior Seminar', 'Fall', 201718, 3);
-myPlan.addCourse('BEGE-3765', 'Theology II', 'Fall', 201718, 3);
-myPlan.addCourse('CS-4810', 'Software Engineering I', 'Fall', 201718, 3);
-myPlan.addCourse('EGCP-4210', 'Advanced Computer Architecture', 'Fall', 201718, 3);
-myPlan.addCourse('EGCP-4310', 'Computer Networks', 'Fall', 201718, 3);
-myPlan.addCourse('CS-2210', 'Chemistry for Engineers', 'Fall', 201718, 4);
-myPlan.addCourse('EGGN-3110', 'Professional Ethics', 'Spring', 201718, 3);
-myPlan.addCourse('CS-3510', 'Compiler Theory & Practice', 'Spring', 201718, 3);
-myPlan.addCourse('CS-4820', 'Software Engineering II', 'Spring', 201718, 3);
-myPlan.addCourse('GDES-1220', 'Digital Imaging: Adobe Photoshop', 'Spring', 201718, 3);
-
-window.onload = function setCourses(){
-	updateCs();
-	getCourseList();
-	resetGrid();
+function getData(url) {
+var data;
+    $.ajax({
+        async: false, //thats the trick
+        url: '/plans/1.json',
+        dataType: 'json',
+        success: function(response){
+           data = response;
+        }
+    });
+    return data;
 }
+
+function getDataCourses(url) {
+	var data;
+		$.ajax({
+			async: false, //thats the trick
+			url: '/courses.json',
+			dataType: 'json',
+			success: function(response){
+			   data = response;
+			}
+		});
+	return data;
+}
+
+//Sets up all the html elements (APE plan, video, wikipedia)
+window.onload = function setCourses() {
+	data = getData('/plans/1.json');
+	myPlan.copy(data);
+	myPlan.checkCur();
+	getCourseList();
+	for(var x in myPlan.courses){
+		var c = myPlan.courses[x];
+		myPlan.addCourse(c.number, c.name, c.term, c.year, c.credits);
+	}
+    updateCs();
+    resetGrid();
+}
+
+var csDat;
+function getCourseList(){
+	csDat = getDataCourses('/courses.json');
+	for (var i in csDat){
+		var newRow = document.createElement("tr");
+		for (var j in csDat[i]){
+			var newCol = document.createElement("td");
+			var txt = document.createTextNode(csDat[i][j]);
+			newCol.appendChild(txt);
+			newRow.appendChild(newCol);
+		}
+		$('#courselisttab').append(newRow);
+	}
+}
+
 //update course list
 function updateCs() {
 	//find table
@@ -304,33 +312,7 @@ function updateCs() {
         }
     }
 }
-function getDataCourses(url) {
-	var data;
-		$.ajax({
-			async: false, //thats the trick
-			url: '/courses.json',
-			dataType: 'json',
-			success: function(response){
-			   data = response;
-			}
-		});
-	return data;
-}
-var csDat;
-function getCourseList(){
-	csDat = getDataCourses('/courses.json');
-	for (var i in csDat){
-		var newRow = document.createElement("tr");
-		for (var j in csDat[i]){
-			var newCol = document.createElement("td");
-			var txt = document.createTextNode(csDat[i][j]);
-			newCol.appendChild(txt);
-			newRow.appendChild(newCol);
-		}
-		$(newRow).data('number', csDat[i].number);
-		$('#courselisttab').append(newRow);
-	}
-}
+
 //Name validation, must exist on submit
 function validateName() {
     var x = document.forms[0]["name"].value;

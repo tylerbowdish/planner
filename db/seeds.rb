@@ -10,6 +10,7 @@ user1.login = "joe"
 user1.email = "joe@cedarville.edu"
 user1.password = "password"
 user1.password_confirmation = "password"
+user1.major = "Computer Science"
 user1.save!
 
 user2 = User.new
@@ -17,11 +18,22 @@ user2.login = "pete"
 user2.email = "pete@cedarville.edu"
 user2.password = "password"
 user2.password_confirmation = "password"
+user2.major = "Computer Engineering"
 user2.save!
 
 #give joe a couple of plans
-Plan.create(user_id: user1.id, name: "Plan1")
-Plan.create(user_id: user1.id, name: "Plan2")
+plan1 = Plan.new
+plan1.name = "my plan"
+plan1.user_id = user2.id
+plan1.catalogYear = 2014
+plan1.currYear = 2017
+plan1.currTerm = "Spring"
+plan1.save!
+
+Plan.create(user_id: user1.id, name: "Plan1", catalogYear: 2014, currYear: 2017, currTerm: "Spring")
+Plan.create(user_id: user1.id, name: "Plan2", catalogYear: 2014, currYear: 2017, currTerm: "Spring")
+
+Term.create()
 
 course1 = Course.new
 course1.number = "1234"
@@ -30,5 +42,13 @@ course1.description = "blah blah blah"
 course1.credits = 5
 course1.save!
 
-Course.create(number: "CS-1210", name: "C++ Programming", description: "This course is SO easy!", credits: 2)
-Course.create(number: "AB-1234", name: "Test course", description: "Arbitrary description", credits: 3)
+course2 = Course.create(number: "CS-1210", name: "C++ Programming", description: "This course is SO easy!", credits: 2)
+course3 = Course.create(number: "AB-1234", name: "Test course", description: "Arbitrary description", credits: 3)
+
+term1 = Term.create(plan_id: plan1.id, semester: "Fall", year: 2014)
+term2 = Term.create(plan_id: plan1.id, semester: "Spring", year: 2015)
+term3 = Term.create(plan_id: plan1.id, semester: "Summer", year: 2015)
+
+TermCourse.create(term_id: term1.id, course_id: course1.id);
+TermCourse.create(term_id: term1.id, course_id: course2.id);
+TermCourse.create(term_id: term2.id, course_id: course3.id);

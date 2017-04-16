@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170415224543) do
+ActiveRecord::Schema.define(version: 20170416220106) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
@@ -23,9 +23,12 @@ ActiveRecord::Schema.define(version: 20170415224543) do
 
   create_table "plans", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "user_id"
+    t.integer  "catalogYear"
+    t.integer  "currYear"
+    t.string   "currTerm"
   end
 
   create_table "term_courses", force: :cascade do |t|
@@ -60,6 +63,7 @@ ActiveRecord::Schema.define(version: 20170415224543) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "login"
+    t.string   "major"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
