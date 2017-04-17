@@ -10,6 +10,7 @@ class PlansController < ApplicationController
   # GET /plans/1
   # GET /plans/1.json
   def show
+    @id = Plan.find_by_id(params[:id]).id
   end
 
   # GET /plans/new
