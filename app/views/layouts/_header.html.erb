@@ -6,7 +6,7 @@
             <li><a href="https://www.cedarville.edu">Cedarville Home</a></li>
             <li><a href="../cs3220.html">Site Home</a></li>
             <% if user_signed_in?%>
-			      <li id="signout"><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %></li>
+			      <li id="signout"><%= link_to "Sign Out " + current_user.login, destroy_user_session_path, :method => :delete %></li>
 			   <% else %>
 			      <li id="signin"><%= link_to "Sign In", new_user_session_path, :method => :get %></li>
 			      <li id="signup"><%= link_to "Sign up", new_user_registration_path, :method => :get %></li>

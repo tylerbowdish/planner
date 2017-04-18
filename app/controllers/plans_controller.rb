@@ -4,13 +4,21 @@ class PlansController < ApplicationController
   # GET /plans
   # GET /plans.json
   def index
-    @plans = Plan.where(user_id: current_user.id)
+    if current_user.role == "Student"
+      @plans = Plan.where(user_id: current_user.id)
+    elsif current_user.role == "Faculty"
+      @plans = Plan.all
+    elsif current_user.role == "Admin"
+      @plans = Plan.all
+    end
   end
 
   # GET /plans/1
   # GET /plans/1.json
   def show
-    @id = Plan.find_by_id(params[:id]).id
+    @plan = Plan.find_by_id(params[:id])
+    @id = @plan.id
+    @user = User.find_by_id(@plan.user_id)
   end
 
   # GET /plans/new

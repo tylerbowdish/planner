@@ -11,6 +11,7 @@ user1.email = "joe@cedarville.edu"
 user1.password = "password"
 user1.password_confirmation = "password"
 user1.major = "Computer Science"
+user1.role = "Student"
 user1.save!
 
 user2 = User.new
@@ -19,7 +20,25 @@ user2.email = "pete@cedarville.edu"
 user2.password = "password"
 user2.password_confirmation = "password"
 user2.major = "Computer Engineering"
+user2.role = "Student"
 user2.save!
+
+user3 = User.new
+user3.login = "admin"
+user3.email = "admin@cedarville.edu"
+user3.password = "admin1"
+user3.password_confirmation = "admin1"
+user3.role = "Admin"
+user3.save!
+
+user4 = User.new
+user4.login = "gallagher"
+user4.email = "gallagher@cedarville.edu"
+user4.password = "password"
+user4.password_confirmation = "password"
+user4.major = "Computer Science"
+user4.role = "Faculty"
+user4.save!
 
 #give joe a couple of plans
 plan1 = Plan.new
