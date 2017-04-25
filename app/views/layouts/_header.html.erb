@@ -1,7 +1,6 @@
 <header> 
-
 	<div class="dropdown">
-         <ul>
+        <ul>
             <li><a href="http://judah.cedarville.edu/peopleschoice/index.php">People's Choice Awards</a></li>
             <li><a href="https://www.cedarville.edu">Cedarville Home</a></li>
             <li><a href="../cs3220.html">Site Home</a></li>
@@ -11,4 +10,7 @@
 			      <li id="signin"><%= link_to "Sign In", new_user_session_path, :method => :get %></li>
 			      <li id="signup"><%= link_to "Sign up", new_user_registration_path, :method => :get %></li>
 			   <% end %>
-   			</li>
+			   <%= yield :nav %> 
+		</ul>
+	</div>
+</header>

@@ -1,9 +1,7 @@
-<li><%= link_to 'Edit', edit_plan_path(@plan) %></li>
-<li><%= link_to 'Back', plans_path %></li>
-
-</ul>
-</div>
-</header>
+<% content_for :nav do %>
+	<li><%= link_to 'Edit', edit_plan_path(@plan), :method => :get %></li>
+	<li><%= link_to 'Back', plans_path, :method => :get %></li>
+<% end %>
 
       <div class="ul" class="ui-widget-content">
          <div class="heading">Requirements</div>
@@ -66,11 +64,15 @@
 
    	<script>
 		$(document).on('turbolinks:load', ready);
-
+		var once = true;
 		function ready() {
-			fillPlan(<%=@id%>);
-			resetGrid();
-			window.addEventListener("resize", resetGrid);
+			if(once) {
+				once = true;
+				console.log("Yep");
+				fillPlan(<%=@id%>);
+				resetGrid();
+				window.addEventListener("resize", resetGrid);
+			}
 		}
 	</script>
    <script>
