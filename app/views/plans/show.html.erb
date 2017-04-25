@@ -1,5 +1,8 @@
 <% content_for :nav do %>
-	<li><%= link_to 'Edit', edit_plan_path(@plan), :method => :get %></li>
+
+	<% if current_user.role == "Admin" then %>
+        <li><%= link_to 'Edit', edit_plan_path(@plan), :method => :get %></li>
+    <% end %>
 	<li><%= link_to 'Back', plans_path, :method => :get %></li>
 <% end %>
 

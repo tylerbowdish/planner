@@ -54,7 +54,7 @@ table {
 /* CSS for APE */
 
 html, body {
-	/*background: url("../../img/tilebg.jpg") !important;*/
+	background: url("/assets/tilebg.jpg") !important;
 	background-repeat: repeat;
 	height: 100%;
 	margin: 0 !important;
@@ -268,7 +268,14 @@ input[type=text] {
 }
 
 #myTable{
-	width: 100%;
+	width: calc(100% - 24px);
+	margin: 12px;
+}
+
+#courselisttab tr td{
+	border: 1px solid gray;
+	padding: 4px;
+
 }
 
 #courselisttab tr:nth-child(even) {
@@ -282,6 +289,10 @@ input[type=text] {
 	border-bottom: 1px solid white;
 }
 
+#myTable thead tr th{
+	padding-bottom: 3px;
+	border-bottom: 1px solid gray;
+}
 
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover{
    background: #500050 !important;
@@ -455,4 +466,101 @@ td.alt {
 
 #add-year {
 	float: right;
+}
+
+.filter-table{
+	margin-top: 15px;
+	margin-left: 12px;
+
+}
+
+.filter-table .quick { margin-left: 0.5em; font-size: 0.8em; text-decoration: none; }
+	.fitler-table .quick:hover { text-decoration: underline; }
+	td.alt { background-color: #ffc; background-color: rgba(255, 255, 0, 0.2); }
+
+#signout, #signin, #signup{
+
+	float: right;
+}
+
+h1{
+	width: calc(100% - 40px);
+	padding: 20px;
+	text-align: center;
+	font-size: 35px;
+}
+
+.formcontainer h2{
+	width: calc(100% - 40px);
+	padding: 20px;
+	text-align: center;
+	font-size: 35px;
+	padding-top: 0px;
+}
+
+body > table{
+	position: relative;
+	width: 75%;
+	margin-left: 12.5%;
+	margin-right: 12.5%;
+}
+
+body > table > thead > tr > th{
+		padding: 10px;
+		font-size: 22px;
+		font-weight: bold;
+}
+
+body > table > tbody > tr:nth-of-type(odd){
+	background-color: lightgray;
+}
+
+body > table > tbody > tr:nth-of-type(even){
+	background-color: white;
+}
+
+body > table > tbody > tr > td{
+	padding: 10px;
+	font-size: 22px;
+	text-align: center;
+	border: 1px solid gray;
+}
+
+body > table > tbody > tr > td > a{
+	text-decoration: none;
+	transition-duration: .3s;
+}
+
+body > table > tbody > tr > td > a:hover{
+	color: red;
+}
+
+body > a{
+	display: block;
+	font-size: 18px;
+	margin: auto;
+	width: 20%;
+	text-align: center;
+}
+
+.formcontainer{
+	width: 20%;
+	margin-left: calc(40% - 35px);
+	margin-right: calc(40% - 35px);
+	background-color: rgba(255,255,255,.6);
+	padding: 35px;
+	border: 2px solid gray;
+	border-radius: 5px;
+}
+
+#notice{
+	display: block;
+	position: absolute;
+	bottom: 3px;
+	text-align: center;
+	width: 100%;
+}
+
+.field > input{
+	margin-bottom: 10px;
 }

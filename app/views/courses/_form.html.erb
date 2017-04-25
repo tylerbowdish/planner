@@ -1,3 +1,7 @@
+</ul>
+</div>
+</header>
+<div class="formcontainer">
 <%= form_for(course) do |f| %>
   <% if course.errors.any? %>
     <div id="error_explanation">
@@ -14,9 +18,16 @@
   <div class="field">
     <%= f.label :name %>
     <%= f.text_field :name %>
+    <%= f.label "Number" %>
+    <%= f.text_field :number %>
+    <%= f.label "Description" %>
+    <%= f.text_field :description %>
+    <%= f.label "Credits" %>
+    <%= f.number_field :credits %>
   </div>
 
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+</div>

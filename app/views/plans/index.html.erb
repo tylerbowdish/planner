@@ -34,3 +34,7 @@
 <br>
 
 <%= link_to 'New Plan', new_plan_path %>
+
+<% if current_user.role == "Admin" then %>
+  <%= link_to 'Courses', courses_path %>
+<% end %>

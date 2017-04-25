@@ -3,7 +3,6 @@
         <ul>
             <li><a href="http://judah.cedarville.edu/peopleschoice/index.php">People's Choice Awards</a></li>
             <li><a href="https://www.cedarville.edu">Cedarville Home</a></li>
-            <li><a href="../cs3220.html">Site Home</a></li>
             <% if user_signed_in?%>
 			      <li id="signout"><%= link_to "Sign Out " + current_user.login, destroy_user_session_path, :method => :delete %></li>
 			   <% else %>
