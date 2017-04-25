@@ -52,7 +52,7 @@ plan1.save!
 Plan.create(user_id: user1.id, name: "Plan1", catalogYear: 2014, currYear: 2017, currTerm: "Spring")
 Plan.create(user_id: user1.id, name: "Plan2", catalogYear: 2014, currYear: 2017, currTerm: "Spring")
 
-Term.create()
+Course.create(number: "ORNT_3001", name: "Getting Started in Moodle", description: "Some class that no one takes, but is required for everyone.", credits: 0)
 
 course1 = Course.new
 course1.number = "1234"

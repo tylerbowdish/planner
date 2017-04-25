@@ -2,7 +2,7 @@
 #json.url plan_url(plan, format: :json)
 
 json.set! :student, User.find(plan.user_id).login 
-json.set! :planName, plan.name
+json.set! :name, plan.name
 json.set! :major, User.find(plan.user_id).major
 json.(:student)
 json.(:planName)
@@ -15,10 +15,10 @@ json.set! :courses do
 		termcourses.each do |term_course|
 			thisCourse = Course.find(term_course.course_id)
 			json.set! thisCourse.number do
-				json.(thisCourse, :number, :name)
+				json.id thisCourse.number
+				json.(thisCourse, :name)
 				json.(term, :year)
-				json.set! :term, term.semester
-				json.(:term)
+				json.term term.semester
 				json.(thisCourse, :credits)
 			end
 		end

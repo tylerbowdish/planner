@@ -8,7 +8,10 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <% if current_user.role == "Admin" then %>
+      <th>User</th>
+      <% end %>
+      <th>Plan</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +19,9 @@
   <tbody>
     <% @plans.each do |plan| %>
       <tr>
+        <% if current_user.role == "Admin" then %>
+        <td><%= User.find_by(id: plan.user_id).login %></td>
+        <% end %>
         <td><%= plan.name %></td>
         <td><%= link_to 'Show', plan %></td>
         <td><%= link_to 'Edit', edit_plan_path(plan) %></td>

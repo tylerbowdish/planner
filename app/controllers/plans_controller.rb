@@ -38,6 +38,8 @@ class PlansController < ApplicationController
 
     respond_to do |format|
       if @plan.save
+        term = Term.create(plan_id: @plan.id, semester: @plan.currTerm, year: @plan.currYear)
+        termCourse = TermCourse.create(term_id: term.id, course_id: Course.find_by(number: "ORNT_3001").id)
         format.html { redirect_to @plan, notice: 'Plan was successfully created.' }
         format.json { render :show, status: :created, location: @plan }
       else
@@ -79,6 +81,6 @@ class PlansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def plan_params
-      params.require(:plan).permit(:name, :user_id)
+      params.require(:plan).permit(:name, :user_id, :currTerm, :currYear, :catalogYear)
     end
 end

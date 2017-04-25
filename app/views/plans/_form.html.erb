@@ -17,6 +17,12 @@
   <div class="field">
     <%= f.label :name %>
     <%= f.text_field :name %>
+    <%= f.label "Catalog Year" %>
+    <%= f.number_field :catalogYear %>
+    <%= f.label "Plan Year" %>
+    <%= f.number_field :currYear %>
+    <%= f.label "Term" %>
+    <%= f.select :currTerm, ['Fall', 'Spring', 'Summer'] %>
   </div>
 
   <div class="actions">
