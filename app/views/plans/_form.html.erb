@@ -1,6 +1,7 @@
 </ul>
 </div>
 </header>
+<div class="formcontainer">
 <%= form_for(plan) do |f| %>
   <% if plan.errors.any? %>
     <div id="error_explanation">
@@ -16,16 +17,17 @@
 
   <div class="field">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name %><br>
     <%= f.label "Catalog Year" %>
-    <%= f.number_field :catalogYear %>
+    <%= f.number_field :catalogYear %><br>
     <%= f.label "Plan Year" %>
-    <%= f.number_field :currYear %>
+    <%= f.number_field :currYear %><br>
     <%= f.label "Term" %>
-    <%= f.select :currTerm, ['Fall', 'Spring', 'Summer'] %>
+    <%= f.select :currTerm, ['Fall', 'Spring', 'Summer'] %><br>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <br><%= f.submit %>
   </div>
 <% end %>
+</div>
