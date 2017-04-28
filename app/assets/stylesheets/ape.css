@@ -276,6 +276,10 @@ input[type=text] {
 	margin: 12px;
 }
 
+#courselisttab tr:hover {
+	cursor: pointer;
+}
+
 #courselisttab tr td{
 	border: 1px solid gray;
 	padding: 4px;
@@ -476,7 +480,7 @@ td.alt {
 }
 
 #delete .course {
-	visibility: visible; 
+    visibility: visible; 
     list-style: none;
     position: absolute;
     top: 0;
