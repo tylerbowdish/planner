@@ -45,14 +45,14 @@ plan1 = Plan.new
 plan1.name = "my plan"
 plan1.user_id = user2.id
 plan1.catalogYear = 2014
-plan1.currYear = 2017
+plan1.currYear = 2015
 plan1.currTerm = "Spring"
 plan1.save!
 
-Plan.create(user_id: user1.id, name: "Plan1", catalogYear: 2014, currYear: 2017, currTerm: "Spring")
-Plan.create(user_id: user1.id, name: "Plan2", catalogYear: 2014, currYear: 2017, currTerm: "Spring")
+Plan.create(user_id: user1.id, name: "Plan1", catalogYear: 2014, currYear: 2015, currTerm: "Spring")
+Plan.create(user_id: user1.id, name: "Plan2", catalogYear: 2014, currYear: 2016, currTerm: "Spring")
 
-Course.create(number: "ORNT_3001", name: "Getting Started in Moodle", description: "Some class that no one takes, but is required for everyone.", credits: 0)
+Course.create(number: "ORNT-3001", name: "Getting Started in Moodle", description: "Some class that no one takes, but is required for everyone.", credits: 0)
 
 course1 = Course.new
 course1.number = "1234"

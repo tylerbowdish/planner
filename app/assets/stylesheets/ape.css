@@ -82,39 +82,37 @@ html, body {
 	top: 3px;
 }
 .ul {
-	position: absolute;
+	/*position: absolute;*/
 	background: rgba(147, 112, 219, .2);
-	float: left;
 	margin: .2%;
 	border-radius: 10px;
-	top: 45px;
-	left: 0px;
+/*	top: 45px;
+	left: 0px;*/
+	float: left;
+	width: 33%;
+	height: 50%;
 }
 
 .heading {
-	width: 99.8%;
+	width: 100%;
 	background: gray;
 	color: white;
-	border: 1px solid black;
-	border-radius: 10px;
+	border-radius: 10px 10px 0 0;
 	text-align: center;
-	position: absolute;
-	top: 0;
-	left: 0;
+	padding: 5px 0;
 }
 
 .container {
 	background: rgba(75, 0, 130, .2);
-	right: 0px;
-	top: 45px;
+	/*right: 0px;
+	top: 45px;*/
 	margin: .2%;
 	border-radius: 10px;
-	position: absolute;
+	/*position: absolute;*/
 	overflow-y: auto;
-}
-
-.ul, .container, .bl, .br {
-	padding-top: 18px;
+	float: left;
+	width: 66%;
+	height: 50%;
 }
 
 .ur {
@@ -125,14 +123,17 @@ html, body {
 
 .bl {
 	background: rgba(75, 0, 130, .2);
-	left: 0px;
+	/*left: 0px;*/
 	margin: .2%;
 	border-radius: 10px;
 	text-align: left;
 	overflow-y: auto;
 	overflow-x: hidden;
-	position: absolute;
-	bottom: 0px;
+/*	position: absolute;
+	bottom: 0px;*/
+	float: left;
+	width: 33%;
+	height: calc(50% - 100px);
 }
 
 .br {
@@ -140,9 +141,12 @@ html, body {
 	margin: .2%;
 	border-radius: 10px;
 	overflow: auto;
-	position: absolute;
+/*	position: absolute;
 	bottom: 0px;
-	right: 0px;
+	right: 0px;*/
+	float: left;
+	width: 66%;
+	height: calc(50% - 100px);
 }
 
 #tab {
@@ -279,12 +283,12 @@ input[type=text] {
 }
 
 #courselisttab tr:nth-child(even) {
-    background: #f9f9f9 !important;
+    background: #f9f9f9;
 	text-shadow: none;
 }
 
 #courselisttab tr:nth-child(odd) {
-    background: lightgray !important;
+    background: lightgray;
 	text-shadow: none;
 	border-bottom: 1px solid white;
 }
@@ -361,6 +365,19 @@ td.alt {
 	box-sizing: border-box;
 }
 
+#ur .semester:nth-last-of-type(1) {
+    border-radius: 0 0 10px;
+}
+
+#ur .semester:nth-last-of-type(3) {
+    border-radius: 0 0 0 10px;
+}
+
+#ur .semester.past {
+	background-color: #ccc;
+	color: #777;
+}
+
 #ur .semester h2 {
 	float: left;
 	font-size: 13px;
@@ -387,9 +404,29 @@ td.alt {
 	z-index: 3;
 }
 
+.ui-sortable-helper {
+	width: auto !important;
+	height: auto !important;
+	padding: 0 !important
+	margin: 0 !important;
+	display: inline !important;
+    background: none !important;
+    border: 0 !important;
+}
+
 #ur .semester .courses .ui-sortable-helper .credits {
 	display: none;
 }
+
+#courselisttab .ui-sortable-helper td {
+    display: inline;
+    border: 0;
+}
+
+#courselisttab .ui-sortable-helper td:nth-of-type(3), #courselisttab .ui-sortable-helper td:nth-of-type(4) {
+	display: none;
+}
+
 
 #ur .semester .courses .course:hover {
 	cursor: pointer;
@@ -415,6 +452,7 @@ td.alt {
 }
 
 #delete {
+	z-index: 2;
 	top: 0;
 	width: 100%;
 	height: 100%;
@@ -563,4 +601,26 @@ body > a{
 
 .field > input{
 	margin-bottom: 10px;
+}
+
+.container::before {
+    box-shadow: inset 0 6px 15px -10px #333;
+    position: absolute;
+    top: calc(50px);
+    border-radius: 10px 10px 0 0;
+    width: 66%;
+    content: '';
+    height: 10px;
+    z-index: 3;
+}
+
+.container::after {
+    box-shadow: inset 0 -6px 15px -10px #333;
+    position: absolute;
+    top: calc(50% + 40px);
+    border-radius: 0 0 10px 10px;
+    width: 66%;
+    content: '';
+    height: 10px;
+    z-index: 3;
 }

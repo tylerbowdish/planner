@@ -1,1 +1,3 @@
-rvmsudo rails server -p 8080 -b 163.11.137.95
+#!/bin/bash
+export rvmsudo_secure_path=1
+rvmsudo rails server -p 80 -b 163.11.137.95
