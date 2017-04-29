@@ -63,6 +63,65 @@ class PlansController < ApplicationController
     end
   end
 
+  def save
+    
+    @plan = Plan.find_by_id(params[:id])
+    puts "Got plan "
+    puts params[:id]
+    @years = JSON.parse params[:years]
+    puts "Got years "
+    puts params[:years]
+    @terms_in_plan = Term.where(plan_id: @plan.id)
+    @terms_in_plan.each do |term|
+      @term_courses = TermCourse.where(term_id: term.id)
+      @term_courses.each do |termcourse|
+        termcourse.destroy
+      end
+      term.destroy
+    end
+
+    @years.each do |thisyearkey, thisyearvalue|
+      puts "this year key is "
+      puts thisyearkey
+      puts "this year value is "
+      puts thisyearvalue
+      tfa = Term.create(plan_id: @plan.id, semester: "Fall", year: thisyearkey)
+      tsp = Term.create(plan_id: @plan.id, semester: "Spring", year: thisyearkey)
+      tsu = Term.create(plan_id: @plan.id, semester: "Summer", year: thisyearkey)
+      puts "created terms"
+      puts "getting terms in plan"
+      puts thisyearkey
+      puts "and"
+      puts thisyearvalue["terms"]
+      thisyearvalue["terms"].each do |termkey, termvalue|
+        puts termkey
+        puts termvalue
+        @currentterm = "null"
+        if termkey == "fa" then
+          @currentterm = tfa.id
+        elsif termkey == "sp" then
+          @currentterm = tsp.id
+        else 
+          @currentterm = tsu.id
+        end
+        termvalue["courses"].each do |coursekey, coursevalue|
+          puts "course info"
+          puts coursekey
+          puts coursevalue
+          @courseid = Course.where(number: coursekey).first.id
+          puts "found course"
+          puts @courseid
+          TermCourse.create(term_id: @currentterm, course_id: @courseid);
+          puts "added course"
+          puts @courseid
+          puts "to term"
+          puts Term.find_by_id(@currentterm).year
+          puts Term.find_by_id(@currentterm).semester
+        end
+      end
+    end
+  end
+
   # DELETE /plans/1
   # DELETE /plans/1.json
   def destroy

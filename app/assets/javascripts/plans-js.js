@@ -278,7 +278,7 @@ class Plan {
 
 /**
  * @param  {string} term - 
- * @param  {strign} type - 
+ * @param  {string} type - 
  */
 function convertTerms(term, type) {
 	if(term == undefined) {
@@ -549,3 +549,21 @@ function resetGrid() {
 	// document.getElementsByClassName('bl')[0].style.width = window.innerWidth * .24 + "px";
 	// document.getElementsByClassName('bl')[0].style.height = (window.innerHeight - 40) * .34 + "px";
 }
+
+$(document).ready(function(){
+
+$('#save_plan').on('click', function(){
+    customAlert("Saving plan...")
+     $.ajax({
+      type: "POST",
+      url: "/plans/save",
+      data: { id: $("#save_plan").data('planid'),
+              years: JSON.stringify(currPlan.years)
+            },
+      success:
+        function(){customAlert("Plan saved successfully.");},
+      error:
+        function(){customAlert("Could not save plan.")},
+    });
+});
+});

@@ -4,8 +4,8 @@
         <li><%= link_to 'Edit', edit_plan_path(@plan), :method => :get %></li>
     <% end %>
 	<li><%= link_to 'Back', plans_path, :method => :get %></li>
+	<li id="save_plan" data-planid="<%= @plan.id %>"><a href="javascript:void(0);">Save Changes</a></li>
 <% end %>
-
       <div class="ul" class="ui-widget-content">
          <div class="heading">Requirements</div>
 		 <div id="accordion">
