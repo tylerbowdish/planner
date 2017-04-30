@@ -206,6 +206,11 @@ class Plan {
 		this.years[year].terms[term].courses[id] = this.catalog.courses[id];
 		this.years[year].terms[term].credits += this.catalog.courses[id].credits;
 
+        if(reqGenEd(id) != -1 || reqCompSci(id) != -1){
+            $("#" + id + "-r").css("color", "green");
+            $("#" + id + "-x").text('\u2713');
+        }
+
 		if(draw) {
 			drawCourse(id, this.catalog.courses[id].name, this.catalog.courses[id].credits, term, year);
 			drawCredits(term, year, this.years[year].terms[term].credits);
@@ -231,6 +236,11 @@ class Plan {
 		delete this.years[year].terms[term].courses[id];
 
 		drawCredits(term, year, this.years[year].terms[term].credits);
+
+        if(reqGenEd(id) != -1 || reqCompSci(id) != -1){
+            $("#" + id + "-r").css("color", "red");
+            $("#" + id + "-x").text("\u2717");
+        }
 	}
 
 	/**
@@ -486,6 +496,14 @@ function customAlert(text) {
 	});
 }
 
+function reqGenEd(name){
+    return $.inArray(name, ["ORNT-3001", "BTGE-1000", "PE-101"]);
+}
+
+function reqCompSci(name){
+    return $.inArray(name, ["CS-1210", "CS-2234", "CS-3360", "HIST-1000"]);
+}
+
 function fillPlan(planId) {
 	var catalog = new Catalog();
 	currPlan = new Plan();
@@ -503,6 +521,38 @@ function fillPlan(planId) {
 				newRow.appendChild(newCol);
 			}
 			$('#courselisttab').append(newRow);
+            if(reqGenEd(i) != -1){
+                var newCourseDiv = document.createElement("div");
+                var newCourseP = document.createElement("p");
+                var newCourseX = document.createElement("p");
+                $(newCourseDiv).css("color", "red");
+                $(newCourseDiv).attr('id', i + "-r");
+                $(newCourseP).text(i + ": " + data.courses[i]["name"]);
+                $(newCourseP).css("display", "inline-block");
+                $(newCourseX).text("\u2717");
+                $(newCourseX).css("display", "inline-block");
+                $(newCourseX).css("float", "right");
+                $(newCourseX).attr('id', i + "-x");
+                newCourseDiv.appendChild(newCourseP);
+                newCourseDiv.appendChild(newCourseX);
+                $('#geneds').append(newCourseDiv);
+            }
+            if(reqCompSci(i) != -1){
+                var newCourseDiv = document.createElement("div");
+                var newCourseP = document.createElement("p");
+                var newCourseX = document.createElement("p");
+                $(newCourseDiv).css("color", "red");
+                $(newCourseDiv).attr('id', i + "-r");
+                $(newCourseP).text(i + ": " + data.courses[i]["name"]);
+                $(newCourseP).css("display", "inline-block");
+                $(newCourseX).text("\u2717");
+                $(newCourseX).css("display", "inline-block");
+                $(newCourseX).css("float", "right");
+                $(newCourseX).attr('id', i + "-x");
+                newCourseDiv.appendChild(newCourseP);
+                newCourseDiv.appendChild(newCourseX);
+                $('#compsci').append(newCourseDiv);
+            }
 		}
 
 		$.getJSON('/plans/' + planId + '.json', function(data) {
@@ -565,19 +615,20 @@ function resetGrid() {
 }
 
 $(document).ready(function(){
-
-$('#save_plan').on('click', function(){
-    customAlert("Saving plan...")
-     $.ajax({
-      type: "POST",
-      url: "/plans/save",
-      data: { id: $("#save_plan").data('planid'),
-              years: JSON.stringify(currPlan.years)
-            },
-      success:
-        function(){customAlert("Plan saved successfully.");},
-      error:
-        function(){customAlert("Could not save plan.")},
+    $('#save_plan').on('click', function(){
+        customAlert("Saving plan...")
+         $.ajax({
+          type: "POST",
+          url: "/plans/save",
+          data: { id: $("#save_plan").data('planid'),
+                  years: JSON.stringify(currPlan.years)
+                },
+          success:
+            function(){customAlert("Plan saved successfully.");},
+          error:
+            function(){customAlert("Could not save plan.")},
+        });
     });
-});
+
+
 });

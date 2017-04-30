@@ -66,12 +66,13 @@ class PlansController < ApplicationController
   def save
     
     @plan = Plan.find_by_id(params[:id])
-    puts "Got plan "
-    puts params[:id]
+    puts "Got plan " 
+    puts @plan.name
     @years = JSON.parse params[:years]
-    puts "Got years "
+    puts "Got years " 
     puts params[:years]
     @terms_in_plan = Term.where(plan_id: @plan.id)
+    puts "Destroying terms..."
     @terms_in_plan.each do |term|
       @term_courses = TermCourse.where(term_id: term.id)
       @term_courses.each do |termcourse|
@@ -79,44 +80,34 @@ class PlansController < ApplicationController
       end
       term.destroy
     end
-
+    puts "Terms destroyed."
     @years.each do |thisyearkey, thisyearvalue|
-      puts "this year key is "
+      puts "Got year " 
       puts thisyearkey
-      puts "this year value is "
-      puts thisyearvalue
+      puts "Creating terms for year..."
       tfa = Term.create(plan_id: @plan.id, semester: "Fall", year: thisyearkey)
       tsp = Term.create(plan_id: @plan.id, semester: "Spring", year: thisyearkey)
       tsu = Term.create(plan_id: @plan.id, semester: "Summer", year: thisyearkey)
-      puts "created terms"
-      puts "getting terms in plan"
-      puts thisyearkey
-      puts "and"
-      puts thisyearvalue["terms"]
+      puts "Terms created."
       thisyearvalue["terms"].each do |termkey, termvalue|
-        puts termkey
-        puts termvalue
         @currentterm = "null"
         if termkey == "fa" then
-          @currentterm = tfa.id
+          @currentterm = tfa
         elsif termkey == "sp" then
-          @currentterm = tsp.id
+          @currentterm = tsp
         else 
-          @currentterm = tsu.id
+          @currentterm = tsu
         end
         termvalue["courses"].each do |coursekey, coursevalue|
-          puts "course info"
-          puts coursekey
-          puts coursevalue
-          @courseid = Course.where(number: coursekey).first.id
-          puts "found course"
-          puts @courseid
-          TermCourse.create(term_id: @currentterm, course_id: @courseid);
-          puts "added course"
-          puts @courseid
-          puts "to term"
-          puts Term.find_by_id(@currentterm).year
-          puts Term.find_by_id(@currentterm).semester
+          @course = Course.where(number: coursekey).first
+          puts "Adding course "
+          puts @course.number 
+          puts @course.name 
+          puts "to term" 
+          puts @currentterm.semester 
+          puts @currentterm.year
+          TermCourse.create(term_id: @currentterm.id, course_id: @course.id);
+          puts "Course added."
         end
       end
     end
