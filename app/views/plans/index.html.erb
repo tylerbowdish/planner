@@ -8,7 +8,7 @@
 <table>
   <thead>
     <tr>
-      <% if current_user.role == "Admin" then %>
+      <% if current_user.role == "Admin" || current_user.role == "Faculty" then %>
       <th>User</th>
       <% end %>
       <th>Plan</th>
@@ -19,12 +19,12 @@
   <tbody>
     <% @plans.each do |plan| %>
       <tr>
-        <% if current_user.role == "Admin" then %>
+        <% if current_user.role == "Admin" || current_user.role == "Faculty" then %>
         <td><%= User.find_by(id: plan.user_id).login %></td>
         <% end %>
         <td><%= plan.name %></td>
-        <td><%= link_to 'Show', plan %></td>
-        <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
+        <td><%= link_to 'Show', plan, :method => :get %></td>
+        <td><%= link_to 'Edit', edit_plan_path(plan), :method => :get %></td>
         <td><%= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -35,6 +35,6 @@
 
 <%= link_to 'New Plan', new_plan_path %>
 
-<% if current_user.role == "Admin" then %>
+<% if current_user.role == "Admin" || current_user.login == "gallagher" then %>
   <%= link_to 'Courses', courses_path %>
 <% end %>

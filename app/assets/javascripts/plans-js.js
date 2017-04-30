@@ -90,6 +90,11 @@ function drawYear(year) {
 
 		// Go ahead and output the constructed html
 		$('#ur').append(html);
+
+		for(var id in courses) {
+			var course = courses[id];
+			drawCourse(id, course.name, course.credits, term, year.year);
+		}
 	}
 }
 
@@ -172,6 +177,8 @@ class Plan {
 			course = data.courses[course];
 			this.addCourse(course.id, course.term, course.year);
 		}
+
+		drawPlan(this);
 	}
 
 	/**
@@ -186,8 +193,9 @@ class Plan {
 	 * @param {string} term - 
 	 * @param {integer} year - 
 	 */
-	addCourse(id, term, year) {
+	addCourse(id, term, year, draw) {
 		term = convertTerms(term, 'short');
+		draw = draw !== undefined ? draw : false;
 		if (this.catalog.courses[id] == undefined) {
 			customAlert('Cannot add course: ' + id + ', it does not exist in the catalog!');
 			return;
@@ -198,8 +206,10 @@ class Plan {
 		this.years[year].terms[term].courses[id] = this.catalog.courses[id];
 		this.years[year].terms[term].credits += this.catalog.courses[id].credits;
 
-		drawCourse(id, this.catalog.courses[id].name, this.catalog.courses[id].credits, term, year);
-		drawCredits(term, year, this.years[year].terms[term].credits);
+		if(draw) {
+			drawCourse(id, this.catalog.courses[id].name, this.catalog.courses[id].credits, term, year);
+			drawCredits(term, year, this.years[year].terms[term].credits);
+		}
 	}
 
 	/**
@@ -234,7 +244,6 @@ class Plan {
 
 		var past = year < this.currYear ? true : false;
 		this.years[year] = new Year(year, past);
-		drawYear(this.years[year]);
 	}
 
 	/**
@@ -273,6 +282,12 @@ class Plan {
 		}
 
 		this.removeCourse(id, oldTerm, oldYear);
+	}
+}
+
+function drawPlan(currPlan) {
+	for(var year in currPlan.years) {
+		drawYear(currPlan.years[year]);
 	}
 }
 
@@ -338,8 +353,6 @@ function setupDragNDrop(currPlan) {
 				var oldTerm = $(e.target).parents('.semester').data('term');
 				var oldYear = $(e.target).parents('.semester').data('year');
 
-				console.log($(ui['item']).parents('#delete').length);
-
 				// If the course is being dropped on the delete zone
 				if ($(ui['item']).parents('#delete').length > 0) {
 					// Remove the course from the term and year
@@ -369,7 +382,7 @@ function setupDragNDrop(currPlan) {
 				var year = $(ui['item']).parents('.semester').data('year');
 
 				// Add the course
-				currPlan.addCourse(id, term, year);
+				currPlan.addCourse(id, term, year, true);
 
 				// Don't remove it from the catalog
 				return false;
@@ -454,6 +467,7 @@ function setupButtons(currPlan) {
 		}
 
 		currPlan.addYear(year + 1);
+		drawYear(currPlan.years[year + 1]);
 		setupDragNDrop(currPlan);
 	});
 }
