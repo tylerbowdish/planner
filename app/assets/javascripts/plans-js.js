@@ -286,12 +286,12 @@ class Plan {
 			return;
 		}
 
+        this.removeCourse(id, oldTerm, oldYear);
+
 		if (newTerm !== '' && newYear !== '') {
 			this.addCourse(id, newTerm, newYear);
 			drawCredits(newTerm, newYear, this.years[newYear].terms[newTerm].credits);
 		}
-
-		this.removeCourse(id, oldTerm, oldYear);
 	}
 }
 
@@ -497,11 +497,28 @@ function customAlert(text) {
 }
 
 function reqGenEd(name){
-    return $.inArray(name, ["ORNT-3001", "BTGE-1000", "PE-101"]);
+    return $.inArray(name, ["ORNT-3001", "BTGE-1000", "PE-101", "BTGE-1020", "BTGE-2010"]);
 }
 
 function reqCompSci(name){
-    return $.inArray(name, ["CS-1210", "CS-2234", "CS-3360", "HIST-1000"]);
+    return $.inArray(name, ["MATH-2080", "MATH-2120", "CS-1210", "CS-2234", "CS-3360", "HIST-1000"]);
+}
+
+function addRequirement(idString, i, data){
+    var newCourseDiv = document.createElement("div");
+    var newCourseP = document.createElement("p");
+    var newCourseX = document.createElement("p");
+    $(newCourseDiv).css("color", "red");
+    $(newCourseDiv).attr('id', i + "-r");
+    $(newCourseP).text(i + ": " + data.courses[i]["name"]);
+    $(newCourseP).css("display", "inline-block");
+    $(newCourseX).text("\u2717");
+    $(newCourseX).css("display", "inline-block");
+    $(newCourseX).css("float", "right");
+    $(newCourseX).attr('id', i + "-x");
+    newCourseDiv.appendChild(newCourseP);
+    newCourseDiv.appendChild(newCourseX);
+    $(idString).append(newCourseDiv);
 }
 
 function fillPlan(planId) {
@@ -522,36 +539,10 @@ function fillPlan(planId) {
 			}
 			$('#courselisttab').append(newRow);
             if(reqGenEd(i) != -1){
-                var newCourseDiv = document.createElement("div");
-                var newCourseP = document.createElement("p");
-                var newCourseX = document.createElement("p");
-                $(newCourseDiv).css("color", "red");
-                $(newCourseDiv).attr('id', i + "-r");
-                $(newCourseP).text(i + ": " + data.courses[i]["name"]);
-                $(newCourseP).css("display", "inline-block");
-                $(newCourseX).text("\u2717");
-                $(newCourseX).css("display", "inline-block");
-                $(newCourseX).css("float", "right");
-                $(newCourseX).attr('id', i + "-x");
-                newCourseDiv.appendChild(newCourseP);
-                newCourseDiv.appendChild(newCourseX);
-                $('#geneds').append(newCourseDiv);
+                addRequirement('#geneds', i, data);
             }
             if(reqCompSci(i) != -1){
-                var newCourseDiv = document.createElement("div");
-                var newCourseP = document.createElement("p");
-                var newCourseX = document.createElement("p");
-                $(newCourseDiv).css("color", "red");
-                $(newCourseDiv).attr('id', i + "-r");
-                $(newCourseP).text(i + ": " + data.courses[i]["name"]);
-                $(newCourseP).css("display", "inline-block");
-                $(newCourseX).text("\u2717");
-                $(newCourseX).css("display", "inline-block");
-                $(newCourseX).css("float", "right");
-                $(newCourseX).attr('id', i + "-x");
-                newCourseDiv.appendChild(newCourseP);
-                newCourseDiv.appendChild(newCourseX);
-                $('#compsci').append(newCourseDiv);
+                addRequirement('#compsci', i, data);
             }
 		}
 

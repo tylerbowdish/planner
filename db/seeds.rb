@@ -61,14 +61,28 @@ course1.description = "blah blah blah"
 course1.credits = 5
 course1.save!
 
-course2 = Course.create(number: "CS-1210", name: "C++ Programming", description: "This course is SO easy!", credits: 2)
+
 course3 = Course.create(number: "AB-1234", name: "Test course", description: "Arbitrary description", credits: 3)
-course4 = Course.create(number: "CS-2234", name: "Computers", description: "Learn about computers", credits: 3)
 course5 = Course.create(number: "HIST-1000", name: "Biography of Dr. G", description: "The most important history class you'll ever take", credits: 7)
-course6 = Course.create(number: "CS-3360", name: "Databases", description: "' OR 1 = 1; DROP TABLE 'courses' --", credits: 3)
-course7 = Course.create(number: "CS-1220", name: "Object-oriented design", description: "A fun class until you get to the final project", credits: 3)
-course8 = Course.create(number: "BTGE-1000", name: "Spiritual Formation", description: "Spifo", credits: 3)
+course11 = Course.create(number: "LIT-1010", name: "Intro to Literature", description: "Learn about books and things", credits: 3)
 course9 = Course.create(number: "PE-101", name: "PACL", description: "run run run run run run run", credits: 3)
+
+course8 = Course.create(number: "BTGE-1000", name: "Spiritual Formation", description: "Spifo", credits: 3)
+course12 = Course.create(number: "BTGE-1020", name: "Old Testament", description: "It's all fun and games until a prospective student visits on Song of Songs day", credits: 3)
+course13 = Course.create(number: "BTGE-2010", name: "New Testament", description: "Learn about all your favorite apostles and their writings", credits: 3)
+
+course14 = Course.create(number: "MATH-2080", name: "Calculus I", description: "If you don't know what it's like to fail a class, you will.", credits: 5)
+course15 = Course.create(number: "MATH-2120", name: "Calculus II", description: "If you didn't fail Calc I, you'll fail this one.", credits: 5)
+
+
+course2 = Course.create(number: "CS-1210", name: "C++ Programming", description: "This course is SO easy!", credits: 2)
+course7 = Course.create(number: "CS-1220", name: "Object-oriented design", description: "A fun class until you get to the final project", credits: 3)
+course6 = Course.create(number: "CS-3360", name: "Databases", description: "' OR 1 = 1; DROP TABLE 'courses' --", credits: 3)
+course4 = Course.create(number: "CS-2234", name: "Computers", description: "Learn about computers", credits: 3)
+course10 = Course.create(number: "CS-4000", name: "Senior Design", description: "The technical name is 'Software Engineering' but nobody calls it that.", credits: 3)
+
+course16 = Course.create(number: "EGCP-1010", name: "Digital Logic Design", description: "Gates and logic and stuff.", credits: 3)
+course17 = Course.create(number: "EGCP-2010", name: "Computer Architecture", description: "Learn how computers work", credits: 3)
 
 term1 = Term.create(plan_id: plan1.id, semester: "Fall", year: 2014)
 term2 = Term.create(plan_id: plan1.id, semester: "Spring", year: 2015)
