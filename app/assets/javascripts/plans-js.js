@@ -265,6 +265,12 @@ class Plan {
 			return;
 		}
 
+		for(var term in this.years[year].terms) {
+			for(var id in this.years[year].terms[term].courses) {
+				this.removeCourse(id, term, year);
+			}
+		}
+
 		undrawYear(year);
 		delete this.years[year];
 	}
