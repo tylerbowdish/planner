@@ -409,6 +409,7 @@ function setupDragNDrop(currPlan) {
 				// Hide the delete zone
 				$('#delete-wrap').hide();
 			}
+			sortCatalog();
 		},
 		helper: function(e, item) {
 			// Add the helper class early so that the css gets applied (changed the width)
@@ -525,6 +526,17 @@ function addRequirement(idString, i, data){
     newCourseDiv.appendChild(newCourseP);
     newCourseDiv.appendChild(newCourseX);
     $(idString).append(newCourseDiv);
+}
+
+function sortCatalog() {
+	var $rows = $('#courselisttab tr');
+	var sorted = $rows.sort(function(a, b) {
+		var vA = $(a).find('td').eq(0).text();
+		var vB = $(b).find('td').eq(0).text();
+		return (vA < vB) ? -1 : (vA > vB) ? 1 : 0;
+	});
+	
+	$('#courselisttab').html(sorted);
 }
 
 function fillPlan(planId) {
