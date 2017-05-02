@@ -14,7 +14,7 @@ json.set! :courses do
 		termcourses = TermCourse.where(term_id: term.id)
 		termcourses.each do |term_course|
 			thisCourse = Course.find(term_course.course_id)
-			json.set! thisCourse.number do
+			json.set! term_course.id do
 				json.id thisCourse.number
 				json.(thisCourse, :name)
 				json.(term, :year)
